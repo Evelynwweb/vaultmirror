@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: vaultmirror
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js # or npm start
+    envVars:
+      - key: ATLAS_URI
+        value: mongodb+srv://infovaultmirror:zplylxPbmehxnjqB@cluster.s4lyqvv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        value: 0PV3EwW93fNQ2GcJ 
+    autoDeploy: true
+    branch: main
+    repo: https://github.com/Evelynwweb/vaultmirror.git
