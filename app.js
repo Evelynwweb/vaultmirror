@@ -32,6 +32,7 @@ app.get(
     '/traders',
     '/live-trading',
     '/kyc',
+    '/*'
   ],
   (req, res) => res.sendFile(path.join(process.cwd(), '/dist/index.html'))
 )

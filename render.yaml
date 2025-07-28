@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     buildCommand: npm install
-    startCommand: node server.js # or npm start
+    startCommand: node server.js 
     envVars:
       - key: ATLAS_URI
         value: mongodb+srv://infovaultmirror:zplylxPbmehxnjqB@cluster.s4lyqvv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
