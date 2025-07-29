@@ -7,35 +7,10 @@ const Admin = require('./models/admin')
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Trader = require('./models/trader')
-const path = require('path')
-var serveStatic = require('serve-static')
 dotenv.config()
 
 const app = express()
 
-app.use(serveStatic(path.join(process.cwd(), '/dist')))
-app.get(
-  [
-    '/',
-    '/signup',
-    '/dashboard',
-    '/fundwallet',
-    '/withdraw',
-    '/transactions',
-    '/settings',
-    '/user/:id',
-    '/withdrawlogs',
-    '/checkout',
-    '/admin',
-    '/deposit',
-    '/usercopytrade',
-    '/traders',
-    '/live-trading',
-    '/kyc',
-  ],
-  (req, res) => res.sendFile(path.join(process.cwd(), '/dist/index.html'))
-)
-app.use('/static', express.static('dist/static'))
 
 const jwtSecret = process.env.JWT_SECRET;
 
