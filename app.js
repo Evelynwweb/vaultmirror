@@ -606,6 +606,32 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.post('/api/resetpassword', async (req, res) => {
+  try {
+    const {newPassword,email} = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ status: 404, message: 'User does not exist' });
+    }
+
+      await User.updateOne(
+        { email: email }, {
+          $set: {
+          password: newPassword
+        }
+      })
+      return res.status(200).json({
+      status: 'ok',
+      message: 'Password reset successful',
+    });
+  } catch (error) {
+    console.error('password not reset', error);
+    return res.json({ status: 'error', message: 'password not reset' });
+  }
+});
+
 
 app.get('/api/getUsers', async (req, res) => {
   const users = await User.find()
