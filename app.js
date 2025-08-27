@@ -7,6 +7,7 @@ const Admin = require('./models/admin')
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Trader = require('./models/trader')
+const { error } = require('console')
 dotenv.config()
 
 const app = express()
@@ -368,10 +369,12 @@ app.post('/api/fundwallet', async (req, res) => {
 })
 
 app.post('/api/debitwallet', async (req, res) => {
-  try {
+  const user = await User.findOne({ email: email })
+  if (req.body.amount >= user.funded) {
+    try {
     const email = req.body.email
     const incomingAmount = req.body.amount
-    const user = await User.findOne({ email: email })
+    
     await User.updateOne(
       { email: email },{
       $set : {
@@ -413,6 +416,15 @@ app.post('/api/debitwallet', async (req, res) => {
     console.log(error)
     res.json({ status: 'error' })
   }
+  }
+  else {
+    res.json({
+      status: 'error',
+      funded: req.body.amount,
+      error:'capital cannot be negative'
+    })
+  }
+  
 })
 
 
